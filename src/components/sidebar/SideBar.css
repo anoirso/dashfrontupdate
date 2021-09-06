@@ -1,0 +1,54 @@
+.main--side--container {
+    height: 100%;
+    border-radius:2px;
+    position: sticky;
+    overflow-x: visible;
+    transition: all 250ms ease-out;
+
+}
+
+.main--side-wrapper {
+    width: 55px;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    padding-bottom: 10px;
+    align-items:center;
+    overflow-x: visible;
+    background-color:#001555;
+    gap:5px;
+    position: relative;
+
+}
+
+.icon--link {
+    text-decoration: none;
+    
+}
+.menu-icon {
+    margin-top:10px;
+}
+.icon--link:hover {
+    opacity: 0.5;
+    transform: translateY(-1px);
+    transition: all 250ms ease-in-out;
+}
+
+img {
+    width: 24px;
+    height: 24px;
+}
+
+.icon--chat {
+    width: 45px;
+    height: 45px;
+}
+.bottom--icons {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    gap: 10px;
+}
