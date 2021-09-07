@@ -12,7 +12,6 @@ function FirstPage({setIsLoggedIn}) {
     const [user, setUser] = useState(null)
 
     const checkLogin = async (token, refresh) => {
-      console.log("Token is" + token);
       if (token) {
       try {
         const res = await fetch(`${URL_BACK}authentication/api/checklogin`, {

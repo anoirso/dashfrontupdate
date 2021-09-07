@@ -8,23 +8,27 @@ import { customInputFieldStyle, customInputStyle, customSignLogin } from '../Sha
 import { Container, TopBar, Image, BottomSection, LeftColumn, InputField, Input,
     WrapperLeft, Inputs, CheckBox, CheckBoxSection, OutsidePuts, ChechBoxes, ProceedButton, RightColumn,
     WrapperRight, BoxProfile, AreaPicture, UploadButton } from './ProfileStyledComponents';
+import useForm from './UseForm';
 
 const ProfileSetUp = (props) => {
-    const [isLoggedIn, setIsLoggedIn] = useState(false);
+    const [isLoggedIn, setIsLoggedIn] = useState(null);
+    const [userDetails, setUserDetails] = useState(null)
+    const {values, handleChange, handleSubmit} = useForm(props.location.state.user, true)
     useEffect(() => {
         const token = Cookies.get('AccessT');
         const refreshToken = Cookies.get('AccessRefreshT');
         checkLoginDirect(token).then(res => {
-              if (res.status == 200) {
-                  setIsLoggedIn(true)
-              }
-              else {
-                  setIsLoggedIn(false)
-              }
-          })
+            if (res.status == 200) {
+                setIsLoggedIn(true)
+            }
+            else {
+                setIsLoggedIn(false)
+            }
+        })
         
         
       },[])
+    console.log(values)
     return (
         <Container>
             {isLoggedIn == false ? <Redirect path="/" /> : null}
@@ -35,26 +39,40 @@ const ProfileSetUp = (props) => {
             </TopBar>
             <BottomSection>
                 <LeftColumn>
-                    <form>
+                    <form
+                        onSubmit = {handleSubmit}
+                    >
                         <WrapperLeft>
                             <h3>Let's set up your profile:</h3>
                             <Inputs>
                                 <InputField>
                                     <p>First name : </p>
-                                    <Input type="text" />
+                                    <Input type="text"
+                                           name = "firstName" 
+                                           value={values.firstName}
+                                           onChange={handleChange}  />
                                 </InputField>
 
                                 <InputField>
                                     <p>Last name : </p>
-                                    <Input type="text" />
+                                    <Input type="text"
+                                           name = "lastName" 
+                                           value={values.lastName}
+                                           onChange={handleChange}  />
                                 </InputField>
                                 <InputField>
                                     <p>Username: </p>
-                                    <Input type="text" />
+                                    <Input type="text" 
+                                           name = "username" 
+                                           value={values.username}
+                                           onChange={handleChange} />
                                 </InputField>
                                 <InputField>
                                     <p>Phone number: </p>
-                                    <Input type="text" />
+                                    <Input type="text" 
+                                           name = "phoneNumber" 
+                                           value={values.phoneNumber}
+                                           onChange={handleChange} />
                                 </InputField>
                                 <OutsidePuts>
                                     <h4>I would like to register as :</h4>
@@ -83,7 +101,7 @@ const ProfileSetUp = (props) => {
                                     </tr>
                                 </table>
 
-                                <ProceedButton>
+                                <ProceedButton type="submit">
                                     <h6>Proceed </h6>
                                 </ProceedButton>
 

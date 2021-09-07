@@ -30,10 +30,13 @@ const Register = () => {
             const res = await fetch(`${URL_BACK}register/api/register`, {
                 method: 'POST',
                 headers: { 'Content-Type': 'application/json' },
+                credentials : 'include',
                 body: JSON.stringify({ email, password })
             })
             const responseStatus = await res.status;
             const json = await res.json();
+            console.log('Response status is ' + responseStatus)
+            console.log(json)
             setUser(json)
             setSuccessRegister(responseStatus == 200 ? true : false);
 
@@ -62,8 +65,8 @@ const Register = () => {
     
     return (
         <Container>
-            {isLoggedIn == true ? <Redirect  to="/"/> : null}
-            {successRegister == true ? <Redirect to={{
+            {(isLoggedIn == true && successRegister == false )? <Redirect  to="/"/> : null}
+            {(successRegister == true && successRegister == true ) ? <Redirect to={{
                 pathname: "/app/profile",
                 state : {user : user}
             }} /> : null}

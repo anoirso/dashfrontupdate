@@ -155,11 +155,12 @@ justify-content: flex-start;
 align-items: center;
 `;
 
-const ProceedButton = styled.div`
+const ProceedButton = styled.button`
 ${customSignLogin}
 margin-top: 50px;
 width: 30%;
 display: flex;
+outline: none;
 justify-content: center;
 `;
 const RightColumn = styled.div`
