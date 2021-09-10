@@ -13,7 +13,7 @@ import useForm from './UseForm';
 const ProfileSetUp = (props) => {
     const [isLoggedIn, setIsLoggedIn] = useState(null);
     const [userDetails, setUserDetails] = useState(null)
-    const {values, handleChange, handleSubmit} = useForm(props.location.state.user, true)
+    const {values, handleChange, handleSubmit, updateSucess} = useForm(props.location.state.user, true)
     useEffect(() => {
         const token = Cookies.get('AccessT');
         const refreshToken = Cookies.get('AccessRefreshT');
@@ -32,6 +32,7 @@ const ProfileSetUp = (props) => {
     return (
         <Container>
             {isLoggedIn == false ? <Redirect path="/" /> : null}
+            {updateSucess == true ? <Redirect path="/"  />: null}
             <TopBar>
                 <Image
                     src={LogoImageSource} />
@@ -78,11 +79,21 @@ const ProfileSetUp = (props) => {
                                     <h4>I would like to register as :</h4>
                                     <ChechBoxes>
                                         <CheckBoxSection>
-                                            <CheckBox type="checkbox" />
+                                            <CheckBox 
+                                                      name = "role"
+                                                      type="radio" 
+                                                      value = "data scientist"
+                                                      onChange={handleChange}
+                                            />
                                             <p>Data scientist</p>
                                         </CheckBoxSection>
                                         <CheckBoxSection>
-                                            <CheckBox type="checkbox" />
+                                            <CheckBox 
+                                                      name = "role"  
+                                                      type="radio" 
+                                                      value = "software engineer" 
+                                                      onChange = {handleChange}
+                                                        />
                                             <p>Software engineer</p>
                                         </CheckBoxSection>
                                     </ChechBoxes>

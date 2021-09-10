@@ -19,7 +19,8 @@ const Register = () => {
     const [email, setEmail] = useState("");
     const [password, setPassword] = useState("");
     const [isLoggedIn, setIsLoggedIn] = useState(false);
-    const [successRegister, setSuccessRegister] = useState(false)
+    const [termsAgreed , setTermsAgreed] = useState(false)
+    const [successRegister, setSuccessRegister] = useState(null)
     const [user, setUser] = useState(null);
     
 
@@ -35,10 +36,8 @@ const Register = () => {
             })
             const responseStatus = await res.status;
             const json = await res.json();
-            console.log('Response status is ' + responseStatus)
-            console.log(json)
             setUser(json)
-            setSuccessRegister(responseStatus == 200 ? true : false);
+            setSuccessRegister((responseStatus == 200 && termsAgreed )? true : false);
 
         } catch (error) {
             console.log(error);
@@ -62,11 +61,10 @@ const Register = () => {
         
         
       },[])
-    
     return (
         <Container>
-            {(isLoggedIn == true && successRegister == false )? <Redirect  to="/"/> : null}
-            {(successRegister == true && successRegister == true ) ? <Redirect to={{
+            {(isLoggedIn == true )? <Redirect  to="/"/> : null}
+            {(successRegister == true && isLoggedIn == false ) ? <Redirect to={{
                 pathname: "/app/profile",
                 state : {user : user}
             }} /> : null}
@@ -113,7 +111,8 @@ const Register = () => {
 
                                 </InputField>
                                 <CheckBoxSection>
-                                    <CheckBox type="checkbox" />
+                                    <CheckBox type="checkbox"
+                                             onChange ={e => setTermsAgreed(e.target.checked)} />
                                     <p>I agree to <a>terms of service</a> and <a>privacy policy</a></p>
                                 </CheckBoxSection>
                             </FormContainer>
@@ -123,7 +122,8 @@ const Register = () => {
                                 Sign up
                         </LoginButton>
                         </form>
-
+                  {(successRegister == false && termsAgreed == false ) && <p className="error--section">You must agree on our terms of service in order to be able to register </p>}      
+                 
                     </WrapperInside>
 
                 </SectionSecond>

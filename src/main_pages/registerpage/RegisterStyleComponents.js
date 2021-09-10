@@ -72,11 +72,18 @@ const WrapperInside = styled.div`
     display: flex;
     flex-direction: column;
     justify-content: center;
-    align-items: center;
+    align-items: flex-start;
     .or {
         font-size: 34px;
         font-weight: 300;
         margin-bottom: 10px;
+    }
+
+    .error--section {
+        margin-top: 10px;
+        font-weight: 200;
+        color: red;
+        text-align: start;
     }
 `;
 

@@ -10,8 +10,10 @@ const useForm = (initialValues, fromRegister) => {
             username : initialValues.username ,
             firstName : initialValues.userDetails.firstName,
             lastName :  initialValues.userDetails.lastName, 
-            phoneNumber : initialValues.userDetails.phoneNumber
+            phoneNumber : initialValues.userDetails.phoneNumber,
+            role : ""
         })
+        const [updateSucess, setUpdateSucess] = useState(false);
     
         const handleChange = e => {
             const {name , value} = e.target;
@@ -30,8 +32,12 @@ const useForm = (initialValues, fromRegister) => {
                 credentials : 'include',
                 body: JSON.stringify({...values , usernameChanged : true})
             })
+            const requestStatus = await request.status;
+            if (requestStatus == 200) {
+                setUpdateSucess(true)
+            }
         }
-        return {handleChange, values, handleSubmit}
+        return {handleChange, values, handleSubmit, updateSucess}
     
 
     
