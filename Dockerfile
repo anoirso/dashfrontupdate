@@ -1,17 +1,18 @@
-FROM node:13.12.0-alpine
+FROM node:12.16.3-alpine as build
 
-# set working directory
 WORKDIR /app
+ENV PATH /app/node_modules/.bin:$PATH
+COPY package*.json ./
+RUN npm install
+COPY . .
+RUN npm run build
 
-# add `/app/node_modules/.bin` to $PATH
+# Stage 1 - Serve Frontend Assets
+FROM fholzer/nginx-brotli:v1.12.2
 
-# install app dependencies
-COPY ./package*.json ./
+WORKDIR /etc/nginx
+ADD nginx.conf /etc/nginx/nginx.conf
 
-RUN npm install 
-
-# add app
-COPY . ./
-
-# start app
-CMD ["npm", "start"]
+COPY --from=build /app/build /usr/share/nginx/html
+EXPOSE 3000
+CMD ["nginx", "-g", "daemon off;"]
