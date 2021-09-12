@@ -8,7 +8,7 @@ import Login from '../loginpage/Login';
 import { URL_BACK } from '../../GlobalValues';
 
 function FirstPage({setIsLoggedIn}) {
-
+    
     const [user, setUser] = useState(null)
 
     const checkLogin = async (token, refresh) => {

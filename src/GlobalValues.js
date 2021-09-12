@@ -2,6 +2,6 @@
 
 
 
-export const URL_BACK = "http://localhost:8000/";
+export const URL_BACK = "https://kendraback-h5qwa7rdjq-lz.a.run.app/";
 
 

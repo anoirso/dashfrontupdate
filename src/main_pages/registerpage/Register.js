@@ -37,7 +37,8 @@ const Register = () => {
             const responseStatus = await res.status;
             const json = await res.json();
             setUser(json)
-            setSuccessRegister((responseStatus == 200 && termsAgreed )? true : false);
+            setSuccessRegister((responseStatus == 200 && termsAgreed == true )? true : false);
+            console.log(successRegister);
 
         } catch (error) {
             console.log(error);
@@ -63,8 +64,8 @@ const Register = () => {
       },[])
     return (
         <Container>
-            {(isLoggedIn == true )? <Redirect  to="/"/> : null}
-            {(successRegister == true && isLoggedIn == false ) ? <Redirect to={{
+            {(isLoggedIn == true && successRegister == null )? <Redirect  to="/"/> : null}
+            {(successRegister == true ) ? <Redirect to={{
                 pathname: "/app/profile",
                 state : {user : user}
             }} /> : null}

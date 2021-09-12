@@ -134,6 +134,7 @@ const ButtomSection = styled.div`
 const Login = ({ setUser , setIsLoggedIn}) => {
     const [usernameOrEmail, setUsernameOrEmail] = useState("");
     const [password, setPassword] = useState("");
+    const {REACT_APP_SPACE_ID} = process.env;
     const handleSubmit = async (e) => {
         e.preventDefault();
         console.log('Hitted')
@@ -204,7 +205,7 @@ const Login = ({ setUser , setIsLoggedIn}) => {
 
             </Wrapper>
             <ButtomSection>
-                <Link className="outsider--link">Terms of service</Link>
+                <Link className="outsider--link">{REACT_APP_SPACE_ID}</Link>
                 <Link className="outsider--link">Privacy policy</Link>
             </ButtomSection>
         </Container>
