@@ -8,11 +8,12 @@ COPY . .
 RUN npm run build
 
 # Stage 1 - Serve Frontend Assets
-FROM fholzer/nginx-brotli:v1.12.2
-
-WORKDIR /etc/nginx
-ADD nginx.conf /etc/nginx/nginx.conf
+FROM nginx:alpine
+COPY nginx.conf /etc/nginx/conf.d/configfile.template
 
 COPY --from=build /app/build /usr/share/nginx/html
+
+ENV PORT 3000
+ENV HOST 0.0.0.0
 EXPOSE 3000
-CMD ["nginx", "-g", "daemon off;"]
+CMD sh -c "envsubst '\$PORT' < /etc/nginx/conf.d/configfile.template > /etc/nginx/conf.d/default.conf && nginx -g 'daemon off;'"
