@@ -16,7 +16,7 @@ function App() {
   
   return (
     <div className="App">
-     
+     {/**  
     <Switch>
 
       
@@ -25,7 +25,8 @@ function App() {
     <Route path="/app/profile" render={(props) => <ProfileSetUp {...props} />} />
       
       
-    </Switch>
+    </Switch>*/}
+    <Dashboard />
     
   </div> 
    
